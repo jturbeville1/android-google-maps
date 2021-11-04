@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".CreatePinActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/takePhotosButton"
+        android:layout_width="201dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="15dp"
+        android:paddingBottom="2dp"
+        android:text="@string/takePhotosString"
+        app:backgroundTint="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enterDetailsScrollview"
+        tools:ignore="OnClick" />
+
+    <Button
+        android:id="@+id/chooseFromGalleryButton"
+        android:layout_width="201dp"
+        android:layout_height="54dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:text="@string/chooseFromGalleryString"
+        app:backgroundTint="@color/black"
+        app:layout_constraintStart_toStartOf="@+id/takePhotosButton"
+        app:layout_constraintTop_toBottomOf="@+id/takePhotosButton" />
+
+    <Button
+        android:id="@+id/returnToMapButton"
+        android:layout_width="201dp"
+        android:layout_height="54dp"
+        android:layout_marginEnd="112dp"
+        android:layout_marginRight="112dp"
+        android:paddingTop="2dp"
+        android:text="@string/returnToMapString"
+        app:backgroundTint="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/chooseFromGalleryButton"
+        app:layout_constraintTop_toBottomOf="@+id/chooseFromGalleryButton"
+        tools:ignore="OnClick" />
+
+    <ScrollView
+        android:id="@+id/enterDetailsScrollview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="190dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/infoLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+            <EditText
+                android:id="@+id/nameEntry"
+                android:layout_width="258dp"
+                android:layout_height="54dp"
+                android:layout_marginTop="10dp"
+                android:autofillHints="Enter the name of the location you are pinning."
+                android:ems="10"
+                android:hint="@string/nameEntryHintString"
+                android:inputType="textPersonName"
+                android:text="@string/nameEntryString"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.496"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/descriptionEntry"
+                android:layout_width="258dp"
+                android:layout_height="132dp"
+                android:layout_marginTop="10dp"
+                android:autofillHints=""
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="@string/descriptionEntryString"
+                android:inputType="textMultiLine"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.496"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nameEntry"
+                tools:text="@string/descriptionEntryString" />
+
+            <TextView
+                android:id="@+id/categoriesEntry"
+                android:layout_width="223dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="@string/categoriesEntryString"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="@+id/descriptionEntry"
+                app:layout_constraintStart_toStartOf="@+id/descriptionEntry"
+                app:layout_constraintTop_toBottomOf="@+id/descriptionEntry" />
+
+            <CheckBox
+                android:id="@+id/category0Entry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/category0String"
+                app:layout_constraintStart_toStartOf="@+id/descriptionEntry"
+                app:layout_constraintTop_toBottomOf="@+id/categoriesEntry" />
+
+            <CheckBox
+                android:id="@+id/category1Entry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/category1String"
+                app:layout_constraintStart_toStartOf="@+id/category0Entry"
+                app:layout_constraintTop_toBottomOf="@+id/category0Entry" />
+
+            <CheckBox
+                android:id="@+id/category2Entry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/category2String"
+                app:layout_constraintStart_toStartOf="@+id/category1Entry"
+                app:layout_constraintTop_toBottomOf="@+id/category1Entry" />
+
+            <CheckBox
+                android:id="@+id/category3Entry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/category3String"
+                app:layout_constraintStart_toStartOf="@+id/category2Entry"
+                app:layout_constraintTop_toBottomOf="@+id/category2Entry" />
+
+            <CheckBox
+                android:id="@+id/category4Entry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/category4String"
+                app:layout_constraintStart_toStartOf="@+id/category3Entry"
+                app:layout_constraintTop_toBottomOf="@+id/category3Entry" />
+
+            <EditText
+                android:id="@+id/ratingEntry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/ratingEntryString"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/category4Entry"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <EditText
+                android:id="@+id/reviewEntry"
+                android:layout_width="258dp"
+                android:layout_height="132dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:autofillHints=""
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="@string/reviewEntryString"
+                android:inputType="textMultiLine"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/descriptionEntry"
+                app:layout_constraintTop_toBottomOf="@+id/ratingEntry"
+                tools:text="@string/reviewEntryString" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

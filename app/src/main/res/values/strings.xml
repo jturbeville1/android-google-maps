@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">Maps_platform_v1</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="temporaryText">null</string>
+    <string name="reviewsHeaderString">Reviews</string>
+    <string name="minusSign">-</string>
+    <string name="dropPinString">Drop Pin</string>
+    <string name="title_activity_create_pin">CreatePinActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="title_activity_create_pin2">MainActivity</string>
+    <string name="nameEntryString">Name</string>
+    <string name="descriptionEntryString">Enter a short description of the location.</string>
+    <string name="takePhotosString">Take Photos</string>
+    <string name="categoriesEntryString">Categories</string>
+    <string name="category0String">Category 0</string>
+    <string name="category1String">Category 1</string>
+    <string name="category2String">Category 2</string>
+    <string name="category3String">Category 3</string>
+    <string name="category4String">Category 4</string>
+    <string name="returnToMapString">Return to Map</string>
+    <string name="chooseFromGalleryString">Choose From Gallery</string>
+    <string name="nameEntryHintString">Enter the name of the location you are pinning.</string>
+    <string name="ratingEntryString">Rating (0–5)</string>
+    <string name="reviewEntryString">Write a short review of the location.</string>
+    <string name="filterString">F</string>
+    <string name="submitFilterString">Filter</string>
+    <string name="pinImageDescription">Pin image</string>
+
+</resources>
