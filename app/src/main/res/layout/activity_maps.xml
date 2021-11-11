@@ -3,7 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+     android:clickable="true"
+    android:focusableInTouchMode="true"
+    android:focusable="true">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/map"
@@ -15,7 +18,31 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
     </androidx.fragment.app.FragmentContainerView>
+
+    <EditText
+        android:id="@+id/searchEditText"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:autofillHints="Search"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/emptyString"
+        app:layout_constraintEnd_toStartOf="@+id/filterButton"
+        app:layout_constraintTop_toTopOf="@+id/map"
+        tools:ignore="LabelFor" />
+
+    <Button
+        android:id="@+id/searchButton"
+        android:layout_width="48dp"
+        android:layout_height="60dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="@string/sString"
+        android:textSize="30sp"
+        app:backgroundTint="@color/black"
+        app:layout_constraintEnd_toStartOf="@id/searchEditText"
+        app:layout_constraintTop_toTopOf="@+id/map" />
 
     <Button
         android:id="@+id/filterButton"
@@ -235,30 +262,27 @@
                         android:layout_width="300dp"
                         android:layout_height="match_parent"
                         android:background="#FFF"
-                        android:paddingRight="15dp"
+                        android:paddingRight="10dp"
                         android:contentDescription="@string/pinImageDescription"
-                        android:paddingEnd="15dp"
-                        tools:ignore="RtlSymmetry" />
+                        tools:ignore="RtlHardcoded,RtlSymmetry" />
 
                     <ImageView
                         android:id="@+id/pinImage2"
                         android:layout_width="300dp"
                         android:layout_height="match_parent"
                         android:background="#FFF"
-                        android:paddingRight="15dp"
+                        android:paddingRight="5dp"
                         android:contentDescription="@string/pinImageDescription"
-                        android:paddingEnd="15dp"
-                        tools:ignore="RtlSymmetry" />
+                        tools:ignore="RtlHardcoded,RtlSymmetry" />
 
                     <ImageView
                         android:id="@+id/pinImage3"
                         android:layout_width="300dp"
                         android:layout_height="match_parent"
                         android:background="#FFF"
-                        android:paddingRight="15dp"
+                        android:paddingRight="5dp"
                         android:contentDescription="@string/pinImageDescription"
-                        android:paddingEnd="15dp"
-                        tools:ignore="RtlSymmetry" />
+                        tools:ignore="RtlHardcoded,RtlSymmetry" />
                 </LinearLayout>
             </HorizontalScrollView>
 

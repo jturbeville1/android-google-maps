@@ -39,5 +39,7 @@
     <string name="filterString">F</string>
     <string name="submitFilterString">Filter</string>
     <string name="pinImageDescription">Pin image</string>
+    <string name="emptyString" />
+    <string name="sString">S</string>
 
 </resources>
