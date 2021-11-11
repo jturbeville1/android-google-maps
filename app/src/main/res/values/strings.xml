@@ -41,5 +41,10 @@
     <string name="pinImageDescription">Pin image</string>
     <string name="emptyString" />
     <string name="sString">S</string>
+    <string name="signInString">Sign In</string>
+    <string name="usernameEntryString">Username or email</string>
+    <string name="createAccountLinkString">Create an account</string>
+    <string name="invalidMessageString">Invalid username/email or password.</string>
+    <string name="passwordEntryString">Password</string>
 
 </resources>
