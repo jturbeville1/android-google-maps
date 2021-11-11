@@ -25,9 +25,9 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         UserDatabaseHandler userDatabaseHandler = new UserDatabaseHandler(LoginActivity.this);
-        User myUser = new User("Justin", "Turbeville", "jturbeville", "Mapsmaggie1$");
-        myUser.setEmail("jturbevil@conncoll.edu");
-        userDatabaseHandler.insert(myUser);
+//        User myUser = new User("Justin", "Turbeville", "jturbeville", "Mapsmaggie1$");
+//        myUser.setEmail("jturbevil@conncoll.edu");
+//        userDatabaseHandler.insert(myUser);
 
         usernameEntry = (EditText) findViewById(R.id.usernameEntry);
         passwordEntry = (EditText) findViewById(R.id.passwordEntry);
@@ -54,6 +54,14 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 }
+            }
+        });
+
+        createNewAccountLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, CreateAccountActivity.class);
+                startActivity(intent);
             }
         });
     }
