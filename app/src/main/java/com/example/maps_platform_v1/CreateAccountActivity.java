@@ -27,7 +27,7 @@ public class CreateAccountActivity extends AppCompatActivity {
 
         firstNameEntry = (EditText) findViewById(R.id.firstNameEntry);
         lastNameEntry = (EditText) findViewById(R.id.lastNameEntry);
-        usernameEntry = (EditText) findViewById(R.id.usernameEntry);
+        usernameEntry = (EditText) findViewById(R.id.newRatingEntry);
         passwordEntry = (EditText) findViewById(R.id.passwordEntry);
         emailEntry = (EditText) findViewById(R.id.emailEntry);
         createAccountButton = (Button) findViewById(R.id.createAccountButton);

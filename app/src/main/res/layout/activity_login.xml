@@ -7,7 +7,7 @@
     tools:context=".LoginActivity">
 
     <EditText
-        android:id="@+id/usernameEntry"
+        android:id="@+id/newRatingEntry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="96dp"
@@ -46,7 +46,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usernameEntry"
+        app:layout_constraintTop_toBottomOf="@+id/newRatingEntry"
         app:layout_constraintVertical_bias="0.050000012"
         android:autofillHints="Password"
         tools:ignore="LabelFor" />
@@ -64,7 +64,7 @@
         app:layout_constraintVertical_bias="0.05" />
 
     <Button
-        android:id="@+id/signInButton"
+        android:id="@+id/submitRatingReviewButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/signInString"
@@ -84,6 +84,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signInButton"
+        app:layout_constraintTop_toBottomOf="@+id/submitRatingReviewButton"
         app:layout_constraintVertical_bias="0.1" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,13 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText usernameEntry;
@@ -29,9 +26,9 @@ public class LoginActivity extends AppCompatActivity {
 //        myUser.setEmail("jturbevil@conncoll.edu");
 //        userDatabaseHandler.insert(myUser);
 
-        usernameEntry = (EditText) findViewById(R.id.usernameEntry);
+        usernameEntry = (EditText) findViewById(R.id.newRatingEntry);
         passwordEntry = (EditText) findViewById(R.id.passwordEntry);
-        signInButton = (Button) findViewById(R.id.signInButton);
+        signInButton = (Button) findViewById(R.id.submitRatingReviewButton);
         createNewAccountLink = (TextView) findViewById(R.id.createNewAccountLink);
         invalidLoginMessage = (TextView) findViewById(R.id.invalidMessageText);
         invalidLoginMessage.setVisibility(View.GONE);

@@ -52,5 +52,10 @@
     <string name="emailString">Email</string>
     <string name="createString">Create</string>
     <string name="usernameExistsString">Username already exists.</string>
+    <string name="addRatingReviewString">Add Rating or Review</string>
+    <string name="ratingString">Rating</string>
+    <string name="ratingRange">0 - 5</string>
+    <string name="reviewString">Review</string>
+    <string name="submitString">Submit</string>
 
 </resources>

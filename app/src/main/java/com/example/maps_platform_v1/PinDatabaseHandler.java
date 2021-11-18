@@ -58,7 +58,6 @@ public class PinDatabaseHandler extends SQLiteOpenHelper {
 
     public long insert(Pin pin) {
         try(SQLiteDatabase db = this.getWritableDatabase()) {
-            Log.i("Insert method", "insert");
             ContentValues contentValues = new ContentValues();
 
 

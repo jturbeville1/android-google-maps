@@ -55,16 +55,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Button dropPinButton;  //button that triggers dropPin function
     private Button filterButton;  //button that triggers filter function
     private Button searchButton;  //button that triggers search function
+    private Button addRatingReviewButton;
     private EditText searchEditText;  //search bar at the top of map
     private LinearLayout filterLayout;  //appears when filter button is clicked
     private ArrayList<Pin> pins;  //list of pins from the database
     private ArrayList<Marker> markers;  //list of markers on the map corresponding to pins
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //triggered when maps activity is created
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        Intent intent = getIntent();
+        String username = intent.getStringExtra("username");
+        String password = intent.getStringExtra("password");
+
+        UserDatabaseHandler userDatabaseHandler = new UserDatabaseHandler(MapsActivity.this);
+        user = userDatabaseHandler.getUser(username, password);
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -374,6 +384,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 dropPinButton.setVisibility(View.GONE);
                 pinInfoScrollview.setVisibility(View.VISIBLE);
 
+                addRatingReviewButton = (Button) findViewById(R.id.addRatingReviewButton);
+                Pin finalCurPin = curPin;
+                addRatingReviewButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(MapsActivity.this, AddRatingReviewActivity.class);
+                        intent.putExtra("pinId", finalCurPin.getId());
+                        intent.putExtra("userId", user.getId());
+                        startActivity(intent);
+                    }
+                });
                 mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                     @Override
                     public void onMapClick(@NonNull LatLng latLng) {

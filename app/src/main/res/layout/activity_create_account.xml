@@ -75,7 +75,7 @@
                 tools:ignore="LabelFor" />
 
             <EditText
-                android:id="@+id/usernameEntry"
+                android:id="@+id/newRatingEntry"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
@@ -101,8 +101,8 @@
                 android:textColor="@color/design_default_color_error"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/usernameEntry"
-                app:layout_constraintTop_toBottomOf="@id/usernameEntry"
+                app:layout_constraintStart_toStartOf="@+id/newRatingEntry"
+                app:layout_constraintTop_toBottomOf="@id/newRatingEntry"
                 app:layout_constraintVertical_bias="0.0" />
 
             <EditText
@@ -119,7 +119,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/usernameEntry"
+                app:layout_constraintTop_toBottomOf="@+id/newRatingEntry"
                 app:layout_constraintVertical_bias="0.0"
                 tools:ignore="LabelFor" />
 
