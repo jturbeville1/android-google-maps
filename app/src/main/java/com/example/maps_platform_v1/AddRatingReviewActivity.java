@@ -35,16 +35,13 @@ public class AddRatingReviewActivity extends AppCompatActivity {
                     reviewEntry = (EditText) findViewById(R.id.newReviewEntry);
                     String ratingString = ratingEntry.getText().toString();
                     reviewText = reviewEntry.getText().toString();
-//                    try {
+                    try {
                         rating = Double.parseDouble(ratingString);
                         if(pinId != -1 && userId != -1 && rating >= 0 && rating <= 5) {
-                            Log.e("ifSatisfied", "Satisfied");
                             PinDatabaseHandler pinDatabaseHandler = new PinDatabaseHandler(AddRatingReviewActivity.this);
                             Pin pin = pinDatabaseHandler.search(pinId);
                             String idString = String.valueOf(pin.getId());
-                            Log.e("StringId", idString);
                             if(pin != null) {
-                                Log.e("PinNotNull", "PinNotNull");
 //                                pin.setName("Test Update");
                                 pin.addRating(rating);
 //                                pinDatabaseHandler.update(pin);
@@ -52,12 +49,11 @@ public class AddRatingReviewActivity extends AppCompatActivity {
                                     Review review = new Review(pinId, userId, rating, reviewText);
                                     ReviewDatabaseHandler reviewDatabaseHandler = new ReviewDatabaseHandler(AddRatingReviewActivity.this);
                                     long id = reviewDatabaseHandler.insert(review);
-                                    Log.e("ReviewId", String.valueOf(id));
                                 }
                             }
                         }
-//                    }
-//                    catch (Exception ignored) {}
+                    }
+                    catch (Exception ignored) {}
                 }
                 Intent returnToMap = new Intent(AddRatingReviewActivity.this, MapsActivity.class);
                 startActivity(returnToMap);

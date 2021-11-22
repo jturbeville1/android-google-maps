@@ -58,5 +58,6 @@
     <string name="reviewString">Review</string>
     <string name="submitString">Submit</string>
     <string name="seeMoreReviews">See more reviews.</string>
+    <string name="see_more_photos">See more photos.</string>
 
 </resources>

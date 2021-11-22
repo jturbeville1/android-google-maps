@@ -249,10 +249,12 @@
                 android:id="@+id/photoScrollView"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
+                android:layout_marginTop="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/pinReview2">
+                app:layout_constraintTop_toBottomOf="@+id/pinReview2"
+                app:layout_constraintVertical_bias="0.0">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -303,6 +305,22 @@
                 app:layout_constraintTop_toBottomOf="@id/photoScrollView"
                 app:layout_constraintVertical_bias="0.0" />
 
+            <TextView
+                android:id="@+id/seePhotosLink"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center_horizontal"
+                android:text="@string/see_more_photos"
+                android:textColor="@color/highlightLinkColor"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/seeReviewsLink"
+                app:layout_constraintVertical_bias="0.0" />
+
             <Button
                 android:id="@+id/addRatingReviewButton"
                 android:layout_width="wrap_content"
@@ -313,7 +331,29 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/seeReviewsLink" />
+                app:layout_constraintTop_toBottomOf="@id/seePhotosLink" />
+
+            <Button
+                android:id="@+id/takePhotoButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/takePhotosString"
+                app:backgroundTint="@android:color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/addRatingReviewButton" />
+
+            <Button
+                android:id="@+id/addFromGalleryButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/chooseFromGalleryString"
+                app:backgroundTint="@android:color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/takePhotoButton" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

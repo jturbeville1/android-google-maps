@@ -15,10 +15,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Maps_platform_v1">
-        <activity android:name=".AddRatingReviewActivity"></activity>
+        <activity android:name=".DisplayReviewsActivity"></activity>
+        <activity android:name=".AddRatingReviewActivity" />
         <activity android:name=".CreateAccountActivity" />
-        <activity android:name=".LoginActivity">
-        </activity>
+        <activity android:name=".LoginActivity"></activity>
         <activity
             android:name=".CreatePinActivity2"
             android:label="@string/title_activity_create_pin2"
@@ -47,7 +47,8 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter></activity>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentActivity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -56,11 +57,50 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Button filterButton;  //button that triggers filter function
     private Button searchButton;  //button that triggers search function
     private Button addRatingReviewButton;
+    private Button takePhotoButton;
+    private Button addFromGalleryButton;
     private EditText searchEditText;  //search bar at the top of map
     private LinearLayout filterLayout;  //appears when filter button is clicked
+    private TextView seeReviewsLink;
     private ArrayList<Pin> pins;  //list of pins from the database
     private ArrayList<Marker> markers;  //list of markers on the map corresponding to pins
     private User user;
+    private int tempId;
+    private final ActivityResultLauncher<Intent> getPhotoTaken = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    Intent resultIntent = result.getData();
+                    if(resultIntent != null) {
+                        Bundle extras = resultIntent.getExtras();
+                        if(extras != null) {
+                            Bitmap bitmap = (Bitmap) extras.get("data");
+                            Photo photo = new Photo(tempId, -1, bitmap);
+                            PhotoDatabaseHandler photoDatabaseHandler = new PhotoDatabaseHandler(MapsActivity.this);
+                            long id = photoDatabaseHandler.insert(photo);
+                            Log.e("photoId", String.valueOf(id));
+                        }
+                    }
+                }
+            });
+    private final ActivityResultLauncher<Intent> getPhotoFromGallery = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if(result.getResultCode() == RESULT_OK) {
+                        Intent resultIntent = result.getData();
+                        assert resultIntent != null;
+                        Bundle extras = resultIntent.getExtras();
+                        assert extras != null;
+                        Bitmap bitmap = (Bitmap) extras.get("data");
+                        Photo photo = new Photo(tempId, -1, bitmap);
+                        PhotoDatabaseHandler photoDatabaseHandler = new PhotoDatabaseHandler(MapsActivity.this);
+
+                    }
+                }
+            });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -300,6 +340,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     return false;
                 }
                 else {
+                    tempId = curPin.getId();
                     pinTitle = (TextView) findViewById(R.id.pinTitle);
                     pinTitle.setText(curPin.getName());
 
@@ -384,8 +425,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 dropPinButton.setVisibility(View.GONE);
                 pinInfoScrollview.setVisibility(View.VISIBLE);
 
-                addRatingReviewButton = (Button) findViewById(R.id.addRatingReviewButton);
                 Pin finalCurPin = curPin;
+                seeReviewsLink = (TextView) findViewById(R.id.seeReviewsLink);
+                seeReviewsLink.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent displayReviewsIntent = new Intent(MapsActivity.this, DisplayReviewsActivity.class);
+                        displayReviewsIntent.putExtra("pinId", finalCurPin.getId());
+                        startActivity(displayReviewsIntent);
+                    }
+                });
+
+                addRatingReviewButton = (Button) findViewById(R.id.addRatingReviewButton);
                 addRatingReviewButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -410,6 +461,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
+        takePhotoButton = (Button) findViewById(R.id.takePhotoButton);
+        takePhotoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                getPhotoTaken.launch(cameraIntent);
+            }
+        });
+
+        addFromGalleryButton = (Button) findViewById(R.id.addFromGalleryButton);
+        addFromGalleryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent pickPhoto = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                getPhotoFromGallery.launch(pickPhoto);
+            }
+        });
     }
 
     public void displayPins(ArrayList<Pin> displayPins) {
@@ -429,4 +498,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);
     }
+
+
 }
