@@ -20,7 +20,7 @@ public class Pin {
     private String phoneNumber;
     private String email;
     private double ratingSum = 0;
-    private double ratingCount = 0;
+    private int ratingCount = 0;
 
     public Pin(){}
 
@@ -157,11 +157,11 @@ public class Pin {
         this.ratingSum = ratingSum;
     }
 
-    public double getRatingCount() {
+    public int getRatingCount() {
         return ratingCount;
     }
 
-    public void setRatingCount(double ratingCount) {
+    public void setRatingCount(int ratingCount) {
         this.ratingCount = ratingCount;
     }
 }

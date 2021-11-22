@@ -96,6 +96,46 @@ public class PinDatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+//    public int update(Pin pin) {
+//        try(SQLiteDatabase db = this.getWritableDatabase()) {
+//            ContentValues contentValues = new ContentValues();
+//
+//
+//            contentValues.put(NAME, pin.getName());
+//
+//
+//            contentValues.put(DESCRIPTION, pin.getDescription());
+//
+//
+//            LatLng latLng = pin.getLatlng();
+//            contentValues.put(LATITUDE, String.valueOf(latLng.latitude));
+//            contentValues.put(LONGITUDE, String.valueOf(latLng.longitude));
+//
+//            ArrayList<String> categories = pin.getCategories();
+//            StringBuilder categoriesString = new StringBuilder(categories.get(0));
+//            for (int i = 1; i < categories.size(); i++) {
+//                categoriesString.append(",").append(categories.get(i));
+//            }
+//            contentValues.put(CATEGORIES, categoriesString.toString());
+//
+//
+//            contentValues.put(CONTRIBUTOR_ID, pin.getContributorId());
+//
+//
+////            contentValues.put(ADDRESS, pin.getAddress());
+//
+//            contentValues.put(CITY, pin.getCity());
+//            contentValues.put(STATE_PROVINCE, pin.getState_province());
+//
+//            contentValues.put(COUNTRY, pin.getCountry());
+////            contentValues.put(PHONE_NUMBER, "null");
+////            contentValues.put(EMAIL, "null");
+//            contentValues.put(RATING_SUM, String.valueOf(pin.getRatingSum()));
+//            contentValues.put(RATING_COUNT, String.valueOf(pin.getRatingCount()));
+//            return db.update("table_name", contentValues, "id" + " = ?", new int[]{pin.getId()});
+//        }
+//    }
+
     public Pin search(long id) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.query(PINS_TABLE, new String[]{ID, NAME, DESCRIPTION, LATITUDE, LONGITUDE,
@@ -148,12 +188,11 @@ public class PinDatabaseHandler extends SQLiteOpenHelper {
                 pin.setEmail(cursor.getString(12));
             }
             if(cursor.getString(13) != null) {
-                pin.setRatingSum(Integer.parseInt(cursor.getString(10)));
+                pin.setRatingSum(Double.parseDouble(cursor.getString(13)));
             }
             if(cursor.getString(14) != null) {
                 pin.setRatingCount(Integer.parseInt(cursor.getString(14)));
             }
-
             return pin;
         }
     }
@@ -194,7 +233,7 @@ public class PinDatabaseHandler extends SQLiteOpenHelper {
 //            pin.setPhoneNumber(cursor.getString(cursor.getColumnIndex(PHONE_NUMBER)));
 //            pin.setEmail(cursor.getString(cursor.getColumnIndex(EMAIL)));
             pin.setRatingSum(Double.parseDouble(cursor.getString(cursor.getColumnIndex(RATING_SUM))));
-            pin.setRatingCount(Double.parseDouble(cursor.getString(cursor.getColumnIndex(RATING_COUNT))));
+            pin.setRatingCount(Integer.parseInt(cursor.getString(cursor.getColumnIndex(RATING_COUNT))));
             pins.add(pin);
         }
         cursor.close();

@@ -26,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
 //        myUser.setEmail("jturbevil@conncoll.edu");
 //        userDatabaseHandler.insert(myUser);
 
-        usernameEntry = (EditText) findViewById(R.id.newRatingEntry);
+        usernameEntry = (EditText) findViewById(R.id.usernameEntry);
         passwordEntry = (EditText) findViewById(R.id.passwordEntry);
         signInButton = (Button) findViewById(R.id.submitRatingReviewButton);
         createNewAccountLink = (TextView) findViewById(R.id.createNewAccountLink);

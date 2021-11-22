@@ -287,6 +287,22 @@
                 </LinearLayout>
             </HorizontalScrollView>
 
+            <TextView
+                android:id="@+id/seeReviewsLink"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center_horizontal"
+                android:text="@string/seeMoreReviews"
+                android:textColor="@color/highlightLinkColor"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/photoScrollView"
+                app:layout_constraintVertical_bias="0.0" />
+
             <Button
                 android:id="@+id/addRatingReviewButton"
                 android:layout_width="wrap_content"
@@ -297,7 +313,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/photoScrollView" />
+                app:layout_constraintTop_toBottomOf="@id/seeReviewsLink" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

@@ -310,7 +310,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         ratingString = "Rating = " + String.valueOf(rating) + "/5";
                     }
                     else {
-                        ratingString = "No ratings";
+                        ratingString = "0 ratings";
                     }
                     pinRating.setText(ratingString);
 
@@ -391,7 +391,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     public void onClick(View view) {
                         Intent intent = new Intent(MapsActivity.this, AddRatingReviewActivity.class);
                         intent.putExtra("pinId", finalCurPin.getId());
-                        intent.putExtra("userId", user.getId());
+//                        int userId = -1;
+//                        if(user != null) {
+                            intent.putExtra("userId", 0);
+//                        }
+//                        intent.putExtra("userId", userId);
                         startActivity(intent);
                     }
                 });

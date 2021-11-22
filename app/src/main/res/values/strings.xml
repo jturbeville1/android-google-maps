@@ -57,5 +57,6 @@
     <string name="ratingRange">0 - 5</string>
     <string name="reviewString">Review</string>
     <string name="submitString">Submit</string>
+    <string name="seeMoreReviews">See more reviews.</string>
 
 </resources>
