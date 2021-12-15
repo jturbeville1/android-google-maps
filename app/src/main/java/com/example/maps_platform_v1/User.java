@@ -1,5 +1,10 @@
 package com.example.maps_platform_v1;
 
+/**
+ * User object is capable of storing a wide variety of
+ * information about a user. USers can be inserted into
+ * the database.
+ */
 public class User {
     private int id;
     private String firstName;

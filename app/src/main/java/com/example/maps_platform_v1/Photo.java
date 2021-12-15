@@ -2,6 +2,11 @@ package com.example.maps_platform_v1;
 
 import android.graphics.Bitmap;
 
+/**
+ * Photo object stores the IDs of the pin it belongs to
+ * and the user who uploaded it. Photo objects can be
+ * inserted into the photos database.
+ */
 public class Photo {
     private int pinId;
     private int contributorId;

@@ -1,5 +1,11 @@
 package com.example.maps_platform_v1;
 
+/**
+ * Review object stores the IDs of the pin it belongs
+ * to and the user that added the review. It also stores
+ * the rating and the review text. Reviews can be inserted
+ * into the database.
+ */
 public class Review {
     private int pinId;
     private int contributorId;

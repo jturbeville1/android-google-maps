@@ -5,26 +5,32 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentActivity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -36,10 +42,10 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
-
     private GoogleMap mMap;  //Google Map interface
     private ScrollView pinInfoScrollview;  //Scrollview that appears when pin is clicked
     private TextView pinTitle;  //title displayed in pinInfoScrollView
@@ -48,6 +54,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private TextView pinCategories;  //categories displayed in pinInfoScrollView
     private TextView pinDescription;  //description displayed in pinInfoScrollView
     private TextView pinRating2;  //rating displayed in the reviews section of pinInfoScrollView
+    private HorizontalScrollView photoScrollView;
     private TextView pinReview1;  //first review displayed in pinInfoScrollView
     private TextView pinReview2;  //second review displayed in pinInfoScrollView
     private ImageView imageView1;  //first image displayed in pinInfoScrollView
@@ -66,6 +73,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ArrayList<Marker> markers;  //list of markers on the map corresponding to pins
     private User user;
     private int tempId;
+    private static final int SELECT_IMAGE_CODE = 1;
     private final ActivityResultLauncher<Intent> getPhotoTaken = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -79,25 +87,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             Photo photo = new Photo(tempId, -1, bitmap);
                             PhotoDatabaseHandler photoDatabaseHandler = new PhotoDatabaseHandler(MapsActivity.this);
                             long id = photoDatabaseHandler.insert(photo);
-                            Log.e("photoId", String.valueOf(id));
+                            Intent i = new Intent(MapsActivity.this, MapsActivity.class);
+                            finish();
+                            overridePendingTransition(0, 0);
+                            startActivity(i);
+                            overridePendingTransition(0, 0);
                         }
-                    }
-                }
-            });
-    private final ActivityResultLauncher<Intent> getPhotoFromGallery = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if(result.getResultCode() == RESULT_OK) {
-                        Intent resultIntent = result.getData();
-                        assert resultIntent != null;
-                        Bundle extras = resultIntent.getExtras();
-                        assert extras != null;
-                        Bitmap bitmap = (Bitmap) extras.get("data");
-                        Photo photo = new Photo(tempId, -1, bitmap);
-                        PhotoDatabaseHandler photoDatabaseHandler = new PhotoDatabaseHandler(MapsActivity.this);
-
                     }
                 }
             });
@@ -130,8 +125,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
+     * This is where we can add markers or lines, add listeners or move the camera.
      * If Google Play services is not installed on the device, the user will be prompted to install
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
@@ -141,27 +135,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         LatLng loc = new LatLng(41.379044103233, -72.097063846886);
-//        Create a pin for demonstration
-//        Pin connCollege = new Pin();
-//        connCollege.setId(0);
-//        connCollege.setLatlng(loc);
-//        connCollege.addRating(5);
-//        connCollege.setName("Connecticut College");
-//        connCollege.setCity("New London");
-//        connCollege.setState_province("CT");
-//        connCollege.setCountry("USA");
-//        connCollege.addCategory("College/University");
-//        connCollege.setDescription("A small liberal arts college that belongs to the NESCAC. " +
-//                "Approximately 2,000 undergraduates attend the school as full-time students. Most popular " +
-//                "majors include Economics, Psychology, and Computer Science.");
-//        Review r1 = new Review("testUser", 4, "I always loved Connecticut College! " +
-//                "The community was great and so were my professors. Also, the campus is fantastic.");
-//        Review r2 = new Review("testUser", 4.5, "I attended Conn many years " +
-//                "ago. The buildings have changed but the values that the school and students embody " +
-//                "will never change. Great place to get a degree!");
-//        connCollege.addReview(r1);
-//        connCollege.addReview(r2);
-//        pinDatabaseHandler.insert(connCollege);
 
         //retrieve pins from database
         PinDatabaseHandler pinDatabaseHandler = new PinDatabaseHandler(MapsActivity.this);
@@ -179,7 +152,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             markers.add(marker);
         }
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 13.5f));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 12f));
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                        //The code in this section implements the filter function.
 
         //filter button brings filterLayout to front of view
         filterButton = (Button)findViewById(R.id.filterButton);
@@ -257,6 +233,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                        //The code in this section implements the function to add a pin to the map
         /*
          * When clicked...
          * Waits for user to click map
@@ -264,12 +242,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
          */
         dropPinButton = (Button)findViewById(R.id.dropPinButton);
         dropPinButton.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
+                Toast.makeText(MapsActivity.this, "Click location to drop the pin." , Toast.LENGTH_LONG).show();
+                dropPinButton.setText("Cancel");
+                dropPinButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        return;
+                    }
+                });
                 mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                     @Override
                     public void onMapClick(@NonNull LatLng latLng) {
-                        Log.i("onClick", "Om click method activated.");
                         Intent createPinIntent = new Intent(MapsActivity.this, CreatePinActivity.class);
                         createPinIntent.putExtra("latitude", latLng.latitude);
                         createPinIntent.putExtra("longitude", latLng.longitude);
@@ -279,6 +265,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                        //The code in this section implements the search bar function
+
+        //executes search when return key is clicked
         searchEditText = (EditText) findViewById(R.id.searchEditText);
         searchEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -295,136 +285,168 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
          * Takes text from search bar.
          * Finds pin with matching name if exists
          * Else finds pin names that contain search text
+         * Else searches the descriptions and reviews
          */
-        searchButton = (Button) findViewById(R.id.searchButton);
-        searchButton.setOnClickListener(new View.OnClickListener() {
+        searchEditText.setOnKeyListener(new View.OnKeyListener() {
             @Override
-            public void onClick(View view) {
-                String searchText = searchEditText.getText().toString();
-                for(Marker marker : markers) {
-                    marker.setVisible(false);
-                }
-                ArrayList<Pin> specificPin = new ArrayList<>();
-                ArrayList<Pin> similarPins = new ArrayList<>();
-                for(Pin pin : pins) {
-                    if(pin.getName().toLowerCase().equals(searchText.toLowerCase())) {
-                        specificPin.add(pin);
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                if (keyEvent.getAction()!=KeyEvent.ACTION_DOWN)
+                    return false;
+                if(i == KeyEvent.KEYCODE_ENTER ){
+                    String searchText = searchEditText.getText().toString().toLowerCase();
+                    for(Marker marker : markers) {
+                        marker.setVisible(false);
                     }
-                    else if(pin.getName().toLowerCase().contains(searchText.toLowerCase())) {
-                        similarPins.add(pin);
+                    ArrayList<Pin> specificPin = new ArrayList<>();
+                    ArrayList<Pin> similarPins = new ArrayList<>();
+                    ArrayList<Pin> pinsWithDescription = new ArrayList<>();
+                    for(Pin pin : pins) {
+                        if(pin.getName().toLowerCase().equals(searchText)) {
+                            specificPin.add(pin);
+                        }
+                        if(pin.getName().toLowerCase().contains(searchText.toLowerCase())) {
+                            similarPins.add(pin);
+                        }
+                        String[] searchWords = searchText.split(" ");
+                        boolean containsAll = true;
+                        for(String word: searchWords) {
+                            if(!pin.getDescription().toLowerCase().contains(word)) {
+                                containsAll = false;
+                            }
+                        }
+                        if(containsAll) {
+                            pinsWithDescription.add(pin);
+                        }
                     }
+                    if(!specificPin.isEmpty()) {
+                        displayPins(specificPin);
+                    }
+                    else if(!similarPins.isEmpty()) {
+                        displayPins(similarPins);
+                    }
+                    else if(!pinsWithDescription.isEmpty()) {
+                        displayPins(pinsWithDescription);
+                    }
+                    return true;
                 }
-                if(!specificPin.isEmpty()) {
-                    displayPins(specificPin);
-                }
-                else if(!similarPins.isEmpty()) {
-                    displayPins(similarPins);
-                }
+                return false;
             }
         });
 
-        //Displays pin info when corresponding marker is clicked
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                        // The code in this section implements the function that displays a pins info when clicked
+
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @SuppressLint("SetTextI18n")
             @Override
             public boolean onMarkerClick(@NonNull Marker marker) {
                 Pin curPin = new Pin();
-                for(Pin pin : pins) {
-                    if(String.valueOf(pin.getId()).equals(marker.getTitle())) {
+                for (Pin pin : pins) {
+                    if (String.valueOf(pin.getId()).equals(marker.getTitle())) {
                         curPin = pin;
                         break;
                     }
                 }
 
-                if(curPin.getName() == null) {
+                if (curPin.getName() == null) {
                     return false;
-                }
-                else {
+                } else {
                     tempId = curPin.getId();
+                    //displays pin title
                     pinTitle = (TextView) findViewById(R.id.pinTitle);
                     pinTitle.setText(curPin.getName());
 
+                    //displays pin rating
                     pinRating = (TextView) findViewById(R.id.pinRating);
                     String ratingString = "";
-                    if(curPin.getRatingCount() != 0) {
+                    if (curPin.getRatingCount() != 0) {
                         Double rating = curPin.getRating();
                         ratingString = "Rating = " + String.valueOf(rating) + "/5";
-                    }
-                    else {
+                    } else {
                         ratingString = "0 ratings";
                     }
                     pinRating.setText(ratingString);
 
+                    //displays city, state, country
+                    String city = curPin.getCity();
+                    String state = curPin.getState_province();
+                    String country = curPin.getCountry();
                     pinLocation = (TextView) findViewById(R.id.pinLocation);
-                    String location = curPin.getCity() + ", " + curPin.getState_province() +
-                            ", " + curPin.getCountry();
-                    pinLocation.setText(location);
+                    if (city != null && state != null && country != null) {
+                        String location = city + ", " + state +
+                                ", " + country;
+                        pinLocation.setText(location);
+                    }
+                    else {
+                        pinLocation.setText("");
+                    }
 
+                    //displays categories
                     pinCategories = (TextView) findViewById(R.id.pinCategories);
                     ArrayList<String> categories = curPin.getCategories();
                     StringBuilder categoriesString = new StringBuilder(categories.get(0));
                     for (int i = 1; i < categories.size(); i++) {
                         categoriesString.append(", ").append(categories.get(i));
                     }
-                    pinCategories.setText(categoriesString.toString());
+                    if (!categories.isEmpty()) {
+                        pinCategories.setText(categoriesString.toString());
+                    }
 
-                    pinDescription = (TextView)findViewById(R.id.pinDescription);
+                    //displays description
+                    pinDescription = (TextView) findViewById(R.id.pinDescription);
                     pinDescription.setText(curPin.getDescription());
 
-                    pinRating2 = (TextView)findViewById(R.id.pinRating2);
-                    pinRating2.setText(ratingString);
+                    //displays two reviews
+                    pinRating2 = (TextView) findViewById(R.id.pinRating2);
+                    pinRating2.setText(String.valueOf(curPin.getRating()) + "/5");
 
-                    pinReview1 = (TextView)findViewById(R.id.pinReview1);
-                    pinReview2 = (TextView)findViewById(R.id.pinReview2);
+                    pinReview1 = (TextView) findViewById(R.id.pinReview1);
+                    pinReview2 = (TextView) findViewById(R.id.pinReview2);
 
                     ReviewDatabaseHandler reviewDatabaseHandler = new ReviewDatabaseHandler(MapsActivity.this);
                     ArrayList<Review> reviews = reviewDatabaseHandler.getPinReviews(curPin.getId());
 
-                    if(!reviews.isEmpty()) {
+                    if (!reviews.isEmpty()) {
                         pinReview1.setText('"' + reviews.get(0).getReview() + '"');
-                        if(reviews.size() > 1) {
+                        if (reviews.size() > 1) {
                             pinReview2.setText('"' + reviews.get(1).getReview() + "'");
-                        }
-                        else {
+                        } else {
                             pinReview2.setText("");
                         }
-                    }
-                    else {
+                    } else {
                         pinReview1.setText("No reviews");
                         pinReview2.setText("");
                     }
+
+                    //displays three photos in a ScrollView
                     PhotoDatabaseHandler photoDatabaseHandler = new PhotoDatabaseHandler(MapsActivity.this);
                     ArrayList<Photo> photos = photoDatabaseHandler.getPinPhotos(curPin.getId());
                     int i = 0;
+                    photoScrollView = (HorizontalScrollView) findViewById(R.id.photoScrollView);
                     imageView1 = (ImageView) findViewById(R.id.pinImage1);
                     imageView2 = (ImageView) findViewById(R.id.pinImage2);
                     imageView3 = (ImageView) findViewById(R.id.pinImage3);
-                    if(photos.size() >= 1) {
+                    if (photos.size() >= 1) {
                         imageView1.setImageBitmap(photos.get(0).getPhoto());
                         if (photos.size() >= 2) {
                             imageView2.setImageBitmap(photos.get(1).getPhoto());
-                            if(photos.size() >= 3) {
+                            if (photos.size() >= 3) {
                                 imageView3.setImageBitmap(photos.get(2).getPhoto());
-                            }
-                            else {
+                            } else {
                                 imageView3.setVisibility(View.GONE);
                             }
-                        }
-                        else {
+                        } else {
                             imageView2.setVisibility(View.GONE);
                             imageView3.setVisibility(View.GONE);
                         }
-                    }
-                    else {
-                        imageView1.setVisibility(View.GONE);
-                        imageView2.setVisibility(View.GONE);
-                        imageView3.setVisibility(View.GONE);
                     }
                 }
 
                 dropPinButton.setVisibility(View.GONE);
                 pinInfoScrollview.setVisibility(View.VISIBLE);
 
+                //displays a text link to see more reviews
                 Pin finalCurPin = curPin;
                 seeReviewsLink = (TextView) findViewById(R.id.seeReviewsLink);
                 seeReviewsLink.setOnClickListener(new View.OnClickListener() {
@@ -436,6 +458,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     }
                 });
 
+                //displays a button for adding reviews
                 addRatingReviewButton = (Button) findViewById(R.id.addRatingReviewButton);
                 addRatingReviewButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -444,12 +467,35 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         intent.putExtra("pinId", finalCurPin.getId());
 //                        int userId = -1;
 //                        if(user != null) {
-                            intent.putExtra("userId", 0);
+                        intent.putExtra("userId", 0);
 //                        }
 //                        intent.putExtra("userId", userId);
                         startActivity(intent);
                     }
                 });
+
+                //displays a button for taking photos
+                takePhotoButton = (Button) findViewById(R.id.takePhotoButton);
+                takePhotoButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                        getPhotoTaken.launch(cameraIntent);
+                    }
+                });
+
+                //displays a button for choosing photos from gallery
+                addFromGalleryButton = (Button) findViewById(R.id.addFromGalleryButton);
+                addFromGalleryButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent pickPhoto = new Intent();
+                        pickPhoto.setType("image/*");
+                        pickPhoto.setAction(Intent.ACTION_GET_CONTENT);
+                        startActivityForResult(Intent.createChooser(pickPhoto, "Title"), SELECT_IMAGE_CODE);
+                    }
+                });
+                //returns the view to the map
                 mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                     @Override
                     public void onMapClick(@NonNull LatLng latLng) {
@@ -460,32 +506,40 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 return true;
             }
         });
-
-        takePhotoButton = (Button) findViewById(R.id.takePhotoButton);
-        takePhotoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                getPhotoTaken.launch(cameraIntent);
-            }
-        });
-
-        addFromGalleryButton = (Button) findViewById(R.id.addFromGalleryButton);
-        addFromGalleryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent pickPhoto = new Intent(Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                getPhotoFromGallery.launch(pickPhoto);
-            }
-        });
     }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                        /*
+                         * The code in this section is a callback for the activity
+                         * launched in line 521
+                         */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == SELECT_IMAGE_CODE) {
+            Uri uri = data.getData();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                PhotoDatabaseHandler db = new PhotoDatabaseHandler(MapsActivity.this);
+                Photo photo = new Photo(tempId, -1, bitmap);
+                db.insert(photo);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Intent i = new Intent(MapsActivity.this, MapsActivity.class);
+            finish();
+            overridePendingTransition(0, 0);
+            startActivity(i);
+            overridePendingTransition(0, 0);
+        }
+    }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                            //The code in this section displays all the pins in the database
 
     public void displayPins(ArrayList<Pin> displayPins) {
         for(Pin pin : displayPins) {
             for(Marker marker : markers) {
-                Log.e("CurrentId", String.valueOf(pin.getId()));
-                Log.e("CurrentId", marker.getTitle());
                 if(marker.getTitle().equals(String.valueOf(pin.getId()))) {
                     marker.setVisible(true);
                 }
@@ -493,6 +547,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                        //The code in this section is used to hide the search keyboard
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void hideKeyboard(View view) {
         InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);

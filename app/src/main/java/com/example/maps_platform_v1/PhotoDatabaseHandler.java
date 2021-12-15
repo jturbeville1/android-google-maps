@@ -13,6 +13,10 @@ import androidx.annotation.Nullable;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
+/**
+ * This class is used to insert and retrieve photos
+ * from the database.
+ */
 public class PhotoDatabaseHandler extends SQLiteOpenHelper {
     private static final int DB_VERSION = 1;
     private static final String DB_NAME = "PhotosTable";
@@ -49,8 +53,15 @@ public class PhotoDatabaseHandler extends SQLiteOpenHelper {
 
             Bitmap bitmap = photo.getPhoto();
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 75, stream);
             byte[] byteArray = stream.toByteArray();
+            while (byteArray.length > 500000){
+                Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+                Bitmap resized = Bitmap.createScaledBitmap(bmp, (int)(bmp.getWidth()*0.8), (int)(bmp.getHeight()*0.8), true);
+                ByteArrayOutputStream st = new ByteArrayOutputStream();
+                resized.compress(Bitmap.CompressFormat.PNG, 100, st);
+                byteArray = st.toByteArray();
+            }
             contentValues.put(PHOTO, byteArray);
 
             return db.insert(PHOTOS_TABLE, null, contentValues);
@@ -64,16 +75,20 @@ public class PhotoDatabaseHandler extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(query, null);
 
         ArrayList<Photo> photos = new ArrayList<>();
-        while(cursor.moveToNext()) {
-            int id = cursor.getInt(cursor.getColumnIndex(PIN_ID));
-            if(id == pinId) {
-                int contributorId = cursor.getInt(cursor.getColumnIndex(CONTRIBUTOR_ID));
-                byte[] byteArray = cursor.getBlob(cursor.getColumnIndex(PHOTO));
-                Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-                Photo photo = new Photo(id, contributorId, bitmap);
-                photos.add(photo);
+        try {
+            while (cursor.moveToNext()) {
+                int id = cursor.getInt(cursor.getColumnIndex(PIN_ID));
+                if (id == pinId) {
+                    int contributorId = cursor.getInt(cursor.getColumnIndex(CONTRIBUTOR_ID));
+                    byte[] byteArray = cursor.getBlob(cursor.getColumnIndex(PHOTO));
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+                    Photo photo = new Photo(id, contributorId, bitmap);
+                    photos.add(photo);
+
+                }
             }
         }
+        catch(Exception ignored) {}
         return photos;
     }
 }

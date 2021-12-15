@@ -16,15 +16,17 @@ public class LoginActivity extends AppCompatActivity {
     private TextView createNewAccountLink;
     private TextView invalidLoginMessage;
 
+    /**
+     * This activity takes input for username and password and
+     * finds the user in the database. Launches MapsActivity
+     * once user provides a correct login or creates an account.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
         UserDatabaseHandler userDatabaseHandler = new UserDatabaseHandler(LoginActivity.this);
-//        User myUser = new User("Justin", "Turbeville", "jturbeville", "Mapsmaggie1$");
-//        myUser.setEmail("jturbevil@conncoll.edu");
-//        userDatabaseHandler.insert(myUser);
 
         usernameEntry = (EditText) findViewById(R.id.usernameEntry);
         passwordEntry = (EditText) findViewById(R.id.passwordEntry);

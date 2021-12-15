@@ -18,8 +18,13 @@ public class CreateAccountActivity extends AppCompatActivity {
     private EditText passwordEntry;
     private EditText emailEntry;
     private TextView usernameExistsText;
+    private TextView passwordRequiredText;
     private Button createAccountButton;
 
+    /**
+     * This activity takes the information the user inputs
+     * and creates an account in the database.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,17 +37,25 @@ public class CreateAccountActivity extends AppCompatActivity {
         emailEntry = (EditText) findViewById(R.id.emailEntry);
         createAccountButton = (Button) findViewById(R.id.createAccountButton);
         usernameExistsText = (TextView) findViewById(R.id.usernameExistsText);
+        passwordRequiredText = (TextView) findViewById(R.id.passwordRequiredText);
         usernameExistsText.setVisibility(View.GONE);
+        passwordRequiredText.setVisibility(View.GONE);
 
         createAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String username = usernameEntry.getText().toString().toLowerCase();
-                if(username.equals("")) {
+                String password = passwordEntry.getText().toString();
+                boolean emptyUsername = username.equals("");
+                boolean emptyPassword = password.equals("");
+                if(emptyUsername) {
                     usernameExistsText.setText("Please enter a username.");
                     usernameExistsText.setVisibility(View.VISIBLE);
                 }
-                else {
+                if(emptyPassword) {
+                    passwordRequiredText.setVisibility(View.VISIBLE);
+                }
+                if(!emptyUsername && !emptyPassword) {
                     UserDatabaseHandler userDatabaseHandler = new UserDatabaseHandler(CreateAccountActivity.this);
                     ArrayList<String> usernames = userDatabaseHandler.getUsernames();
                     boolean exists = false;
@@ -58,7 +71,6 @@ public class CreateAccountActivity extends AppCompatActivity {
                     } else {
                         String firstName = firstNameEntry.getText().toString();
                         String lastName = lastNameEntry.getText().toString();
-                        String password = passwordEntry.getText().toString();
                         String email = emailEntry.getText().toString();
 
                         User newUser = new User(firstName, lastName, username, password);

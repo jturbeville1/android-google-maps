@@ -10,6 +10,10 @@ import java.util.ArrayList;
 
 public class DisplayReviewsActivity extends AppCompatActivity {
 
+    /**
+     * This activity displays a list of all of the reviews
+     * for a given pin found in the database.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +26,7 @@ public class DisplayReviewsActivity extends AppCompatActivity {
             ReviewDatabaseHandler reviewDatabaseHandler = new ReviewDatabaseHandler(DisplayReviewsActivity.this);
             ArrayList<Review> reviews = reviewDatabaseHandler.getPinReviews(pinId);
             if(!reviews.isEmpty()) {
-                String reviewsString = "username\nRating: " + String.valueOf(reviews.get(0).getRating()) +
+                String reviewsString = "jturbeville\nRating: " + String.valueOf(reviews.get(0).getRating()) +
                         "/5\n" + reviews.get(0).getReview();
                 for (int i = 1; i < reviews.size(); i++) {
                     Review curReview = reviews.get(i);

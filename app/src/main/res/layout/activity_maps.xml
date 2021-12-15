@@ -25,24 +25,19 @@
         android:id="@+id/searchEditText"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
         android:autofillHints="Search"
         android:ems="10"
+        android:hint="@string/searchString"
         android:inputType="textPersonName"
-        android:text="@string/emptyString"
-        app:layout_constraintEnd_toStartOf="@+id/filterButton"
+        android:shadowColor="@color/white"
+        android:textColor="@color/black"
+        android:textColorHighlight="@color/black"
+        android:textColorHint="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/map"
         tools:ignore="LabelFor" />
-
-    <Button
-        android:id="@+id/searchButton"
-        android:layout_width="48dp"
-        android:layout_height="60dp"
-        android:gravity="center_horizontal|center_vertical"
-        android:text="@string/sString"
-        android:textSize="30sp"
-        app:backgroundTint="@color/black"
-        app:layout_constraintEnd_toStartOf="@id/searchEditText"
-        app:layout_constraintTop_toTopOf="@+id/map" />
 
     <Button
         android:id="@+id/filterButton"
@@ -53,6 +48,7 @@
         android:textSize="30sp"
         app:backgroundTint="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/searchEditText"
         app:layout_constraintTop_toTopOf="@+id/map" />
 <!--    <Button-->
 <!--        android:id="@+id/zoomOutButton"-->
@@ -113,7 +109,11 @@
                 android:id="@+id/pinTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginLeft="30dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginRight="30dp"
                 android:gravity="center_horizontal"
                 android:text="@string/temporaryText"
                 android:textColor="@color/black"
@@ -129,7 +129,11 @@
                 android:id="@+id/pinRating"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginLeft="30dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginRight="30dp"
                 android:gravity="center_horizontal"
                 android:text="@string/temporaryText"
                 android:textSize="12sp"
@@ -143,7 +147,11 @@
                 android:id="@+id/pinLocation"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginLeft="30dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginRight="30dp"
                 android:gravity="center_horizontal"
                 android:text="@string/temporaryText"
                 android:textColor="@color/black"
@@ -158,7 +166,11 @@
                 android:id="@+id/pinCategories"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginLeft="30dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginRight="30dp"
                 android:gravity="center_horizontal"
                 android:text="@string/temporaryText"
                 android:textColor="@color/black"
@@ -173,7 +185,11 @@
                 android:id="@+id/pinDescription"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginLeft="30dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginRight="30dp"
                 android:gravity="center_horizontal"
                 android:text="@string/temporaryText"
                 android:textColor="@color/black"
@@ -203,7 +219,11 @@
                 android:id="@+id/pinRating2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginLeft="30dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginRight="30dp"
                 android:gravity="center_horizontal"
                 android:text="@string/temporaryText"
                 android:textColor="@color/black"
@@ -218,7 +238,11 @@
                 android:id="@+id/pinReview1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginLeft="30dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginRight="30dp"
                 android:gravity="center_horizontal"
                 android:text="@string/temporaryText"
                 android:textColor="@color/black"
@@ -233,7 +257,11 @@
                 android:id="@+id/pinReview2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginLeft="30dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginRight="30dp"
                 android:layout_marginBottom="10dp"
                 android:gravity="center_horizontal"
                 android:text="@string/temporaryText"
@@ -248,8 +276,8 @@
             <HorizontalScrollView
                 android:id="@+id/photoScrollView"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:layout_marginTop="20dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -262,7 +290,7 @@
 
                     <ImageView
                         android:id="@+id/pinImage1"
-                        android:layout_width="300dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:background="#FFF"
                         android:contentDescription="@string/pinImageDescription"
@@ -271,7 +299,7 @@
 
                     <ImageView
                         android:id="@+id/pinImage2"
-                        android:layout_width="300dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:background="#FFF"
                         android:contentDescription="@string/pinImageDescription"
@@ -280,7 +308,7 @@
 
                     <ImageView
                         android:id="@+id/pinImage3"
-                        android:layout_width="300dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:background="#FFF"
                         android:contentDescription="@string/pinImageDescription"
@@ -339,8 +367,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/takePhotosString"
                 app:backgroundTint="@android:color/black"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toStartOf="@+id/addFromGalleryButton"
+                app:layout_constraintHorizontal_bias="0.51"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/addRatingReviewButton" />
 
@@ -352,16 +380,16 @@
                 app:backgroundTint="@android:color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/takePhotoButton" />
+                app:layout_constraintStart_toEndOf="@+id/takePhotoButton"
+                app:layout_constraintTop_toBottomOf="@+id/addRatingReviewButton" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
     <LinearLayout
         android:id="@+id/filterLayout"
-        android:layout_width="325dp"
-        android:layout_height="381dp"
+        android:layout_width="328dp"
+        android:layout_height="250dp"
         android:layout_marginStart="40dp"
         android:layout_marginLeft="40dp"
         android:layout_marginEnd="40dp"
@@ -389,7 +417,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/category0String"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textColorHighlight="@color/black"
+            android:textColorLink="@color/black" />
 
         <CheckBox
             android:id="@+id/category1Filter"
@@ -423,7 +453,7 @@
             android:text="@string/submitFilterString"
             app:backgroundTint="@color/black" />
 
-<!--        Make loop to generate categories-->
+        <!--        Make loop to generate categories-->
 
     </LinearLayout>
 

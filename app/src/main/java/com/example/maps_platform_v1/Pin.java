@@ -5,6 +5,11 @@ import com.google.android.gms.maps.model.LatLng;
 import java.sql.Array;
 import java.util.ArrayList;
 
+/**
+ * Pin object is capable of storing a variety of information
+ * about a location on the map. Pins can be inserted into
+ * the database of pins.
+ */
 public class Pin {
     private int id;
     private String name;

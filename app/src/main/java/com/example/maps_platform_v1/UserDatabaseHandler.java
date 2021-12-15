@@ -11,6 +11,10 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
+/**
+ * This class is used to insert and retrieve users
+ * from the database.
+ */
 public class UserDatabaseHandler extends SQLiteOpenHelper {
     private static final int DB_VERSION = 1;
     private static final String DB_NAME = "UsersTable";

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Maps_platform_v1</string>
+    <string name="app_name">Nature Destinations</string>
     <string name="title_activity_maps">Map</string>
     <string name="temporaryText">null</string>
     <string name="reviewsHeaderString">Reviews</string>
@@ -23,16 +23,16 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_create_pin2">MainActivity</string>
     <string name="nameEntryString">Name</string>
-    <string name="descriptionEntryString">Enter a short description of the location.</string>
+    <string name="descriptionEntryString">Description</string>
     <string name="takePhotosString">Take Photos</string>
     <string name="categoriesEntryString">Categories</string>
-    <string name="category0String">Category 0</string>
-    <string name="category1String">Category 1</string>
-    <string name="category2String">Category 2</string>
-    <string name="category3String">Category 3</string>
-    <string name="category4String">Category 4</string>
+    <string name="category0String">Beach/Water</string>
+    <string name="category1String">Nature</string>
+    <string name="category2String">Camping</string>
+    <string name="category3String">Fishing</string>
+    <string name="category4String">Hiking</string>
     <string name="returnToMapString">Return to Map</string>
-    <string name="chooseFromGalleryString">Choose From Gallery</string>
+    <string name="chooseFromGalleryString">Add Photo From Gallery</string>
     <string name="nameEntryHintString">Enter the name of the location you are pinning.</string>
     <string name="ratingEntryString">Rating (0–5)</string>
     <string name="reviewEntryString">Write a short review of the location.</string>
@@ -59,5 +59,7 @@
     <string name="submitString">Submit</string>
     <string name="seeMoreReviews">See more reviews.</string>
     <string name="see_more_photos">See more photos.</string>
+    <string name="passwordRequired">Please enter a password.</string>
+    <string name="searchString">Search</string>
 
 </resources>

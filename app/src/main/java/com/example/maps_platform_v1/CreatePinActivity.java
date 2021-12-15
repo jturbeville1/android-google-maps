@@ -62,15 +62,17 @@ public class CreatePinActivity extends AppCompatActivity {
                 public void onActivityResult(ActivityResult result) {
                     if(result.getResultCode() == RESULT_OK) {
                         Intent resultIntent = result.getData();
-                        assert resultIntent != null;
-                        Bundle extras = resultIntent.getExtras();
-                        assert extras != null;
-                        Bitmap bitmap = (Bitmap) extras.get("data");
-                        bitmaps.add(bitmap);
+                        try {
+                            Bundle extras = resultIntent.getExtras();
+                            Bitmap bitmap = (Bitmap) extras.get("data");
+                            bitmaps.add(bitmap);
+                        }
+                        catch (Exception ignored) {}
                     }
                 }
             });
 
+    //This activity takes input from the user and adds a pin to the database.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +80,7 @@ public class CreatePinActivity extends AppCompatActivity {
         latitude = getIntent().getDoubleExtra("latitude", -1);
         longitude = getIntent().getDoubleExtra("longitude", -1);
 
+        //user can take photos to add to the pin
         takePhotosButton = (Button)findViewById(R.id.takePhotosButton);
         takePhotosButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,6 +90,7 @@ public class CreatePinActivity extends AppCompatActivity {
             }
         });
 
+        //user can upload photos from memory to add to the pin
         chooseFromGalleryButton = (Button)findViewById(R.id.chooseFromGalleryButton);
         chooseFromGalleryButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,6 +101,7 @@ public class CreatePinActivity extends AppCompatActivity {
             }
         });
 
+        //When return to map is clicked, pin information is screened and added to database
         returnToMapButton = (Button)findViewById(R.id.returnToMapButton);
         returnToMapButton.setOnClickListener(new View.OnClickListener() {
             @Override

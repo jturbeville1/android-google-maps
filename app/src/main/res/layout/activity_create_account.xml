@@ -48,7 +48,6 @@
                 android:ems="10"
                 android:gravity="start|top"
                 android:inputType="textPersonName"
-                android:text="@string/firstNameString"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -66,7 +65,7 @@
                 android:ems="10"
                 android:gravity="start|top"
                 android:inputType="textPersonName"
-                android:text="@string/lastNameString"
+                android:hint="@string/lastNameString"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -84,7 +83,7 @@
                 android:ems="10"
                 android:gravity="start|top"
                 android:inputType="textPersonName"
-                android:text="@string/usernameString"
+                android:hint="@string/usernameString"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -115,7 +114,7 @@
                 android:ems="10"
                 android:gravity="start|top"
                 android:inputType="textPassword"
-                android:text="@string/passwordString"
+                android:hint="@string/passwordString"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -133,7 +132,7 @@
                 android:ems="10"
                 android:gravity="start|top"
                 android:inputType="textEmailAddress"
-                android:text="@string/emailString"
+                android:hint="@string/emailString"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -154,6 +153,15 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/emailEntry"
                 app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/passwordRequiredText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/passwordRequired"
+                android:textColor="@color/design_default_color_error"
+                app:layout_constraintStart_toStartOf="@+id/passwordEntry"
+                app:layout_constraintTop_toBottomOf="@+id/passwordEntry" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

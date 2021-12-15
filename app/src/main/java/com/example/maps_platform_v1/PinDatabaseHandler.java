@@ -13,6 +13,10 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 
+/**
+ * This class is used to insert and retrieve pins
+ * from the database.
+ */
 public class PinDatabaseHandler extends SQLiteOpenHelper {
     private static final int DB_VERSION = 1;
     private static final String DB_NAME = "PinsTable";

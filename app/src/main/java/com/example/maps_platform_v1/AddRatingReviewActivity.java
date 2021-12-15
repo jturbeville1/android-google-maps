@@ -18,6 +18,12 @@ public class AddRatingReviewActivity extends AppCompatActivity {
     private double rating;
     private String reviewText;
 
+    /**
+     * This activity takes the rating and review
+     * input by the user in layout: activity_add_rating_review
+     * and adds the rating to the pins database and the
+     * review to the review database.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,19 +43,17 @@ public class AddRatingReviewActivity extends AppCompatActivity {
                     reviewText = reviewEntry.getText().toString();
                     try {
                         rating = Double.parseDouble(ratingString);
-                        if(pinId != -1 && userId != -1 && rating >= 0 && rating <= 5) {
+                        if(rating >= 0 && rating <= 5) {
                             PinDatabaseHandler pinDatabaseHandler = new PinDatabaseHandler(AddRatingReviewActivity.this);
                             Pin pin = pinDatabaseHandler.search(pinId);
                             String idString = String.valueOf(pin.getId());
-                            if(pin != null) {
-//                                pin.setName("Test Update");
-                                pin.addRating(rating);
+                            //                                pin.setName("Test Update");
+                            pin.addRating(rating);
 //                                pinDatabaseHandler.update(pin);
-                                if(!reviewText.equals("")) {
-                                    Review review = new Review(pinId, userId, rating, reviewText);
-                                    ReviewDatabaseHandler reviewDatabaseHandler = new ReviewDatabaseHandler(AddRatingReviewActivity.this);
-                                    long id = reviewDatabaseHandler.insert(review);
-                                }
+                            if(!reviewText.equals("")) {
+                                Review review = new Review(pinId, userId, rating, reviewText);
+                                ReviewDatabaseHandler reviewDatabaseHandler = new ReviewDatabaseHandler(AddRatingReviewActivity.this);
+                                long id = reviewDatabaseHandler.insert(review);
                             }
                         }
                     }

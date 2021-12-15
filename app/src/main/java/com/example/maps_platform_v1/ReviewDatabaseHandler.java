@@ -20,6 +20,10 @@ public class ReviewDatabaseHandler extends SQLiteOpenHelper {
     private static final String RATING = "rating";
     private static final String REVIEW = "review";
 
+    /**
+     * This class is used to insert and retrieve reviews
+     * from the database.
+     */
     public ReviewDatabaseHandler(@Nullable Context context) {
         super(context, DB_NAME, null, 1);
     }
