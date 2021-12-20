@@ -136,7 +136,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         LatLng loc = new LatLng(41.379044103233, -72.097063846886);
 
-        //retrieve pins from database
+//////////////////////////////////////////////// Section A //////////////////////////////////////////////////////////////////////////////////////////
+                        //The code in this section populated the map with markers stored in the database.
         PinDatabaseHandler pinDatabaseHandler = new PinDatabaseHandler(MapsActivity.this);
         pins = pinDatabaseHandler.getPins();
         markers = new ArrayList<>();
@@ -154,7 +155,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 12f));
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////// Section B ////////////////////////////////////////////////////////////////////////////////////////////
                         //The code in this section implements the filter function.
 
         //filter button brings filterLayout to front of view
@@ -233,7 +234,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////// Section C ////////////////////////////////////////////////////////////////////////////////////////////////////////
                         //The code in this section implements the function to add a pin to the map
         /*
          * When clicked...
@@ -265,7 +266,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////// Section D ////////////////////////////////////////////////////////////////////////////////////////////////////
                         //The code in this section implements the search bar function
 
         //executes search when return key is clicked
@@ -334,7 +335,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////// Section E //////////////////////////////////////////////////////////////////////////////////////////
                         // The code in this section implements the function that displays a pins info when clicked
 
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
@@ -446,8 +447,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 dropPinButton.setVisibility(View.GONE);
                 pinInfoScrollview.setVisibility(View.VISIBLE);
 
-                //displays a text link to see more reviews
+
                 Pin finalCurPin = curPin;
+
+//////////////////////////////////////////////// Section F //////////////////////////////////////////////////////////////////////////////////////////
+                        // The code in this section launches DisplayReviewsActivity.java
                 seeReviewsLink = (TextView) findViewById(R.id.seeReviewsLink);
                 seeReviewsLink.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -458,7 +462,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     }
                 });
 
-                //displays a button for adding reviews
+//////////////////////////////////////////////// Section G //////////////////////////////////////////////////////////////////////////////////////////
+                        // The code in this section launches DisplayReviewsActivity.java
                 addRatingReviewButton = (Button) findViewById(R.id.addRatingReviewButton);
                 addRatingReviewButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -508,11 +513,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
     }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                        /*
-                         * The code in this section is a callback for the activity
-                         * launched in line 521
-                         */
+    /*
+     * The code in this below is a callback for the activity
+     * launched in line 521
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -534,7 +538,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////// Section H //////////////////////////////////////////////////////////////////////////////////////////
                             //The code in this section displays all the pins in the database
 
     public void displayPins(ArrayList<Pin> displayPins) {
